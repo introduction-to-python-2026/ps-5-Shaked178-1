@@ -5,8 +5,6 @@
 
 import string_utils.py
 import equation_utils.py
-import main.ipynb
-import count_atoms_in_molecule.ipynb
 
 
 def balance_reaction(reaction): #"Fe2O3 + H2 -> Fe + H2O"
