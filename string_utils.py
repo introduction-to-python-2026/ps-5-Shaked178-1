@@ -1,42 +1,45 @@
 
 
 def split_before_uppercases(formula):
-    if not formula:
-        return []
-    result = []
-    current_word = formula[0]
-    for char in formula[1:]:
+    t = []
+    splited_formula = []
+
+    for char in formula:
         if char.isupper():
-            result.append(current_word)
-            current_word = char
+            if t:  # only append if t is not empty
+                splited_formula.append(''.join(t))
+            t = [char]
         else:
-            current_word += char
-    result.append(current_word)
-   return result
+            t.append(char)
+
+    if t:  # append the last chunk after the loop
+        splited_formula.append(''.join(t))
+
+    return splited_formula
 
 def split_at_digit(formula):
-      for i, ch in enumerate(formula):
-          if ch.isdigit():
-              return formula[:i], int(formula[i:])
-      return formula, 1
+    digits = []
+    letters = []
+    for char in formula:
+        if char.isdigit():
+            digits.append(char)
+        else:
+            letters.append(char)
+    if digits == []:
+        digits.append("1")
+    return ''.join(letters), int(''.join(digits))
 
 def count_atoms_in_molecule(molecular_formula):
-    """Takes a molecular formula (string) and returns a dictionary of atom counts.  
-    Example: 'H2O' → {'H': 2, 'O': 1}"""
-    
-    # Step 1: Initialize an empty dictionary to store atom counts
+  count = {}
+  splited_formula = split_before_uppercases(molecular_formula)
+  for atom in splited_formula:
+    element,amount = split_at_digit(atom)
+    if element in count:
+      count[element] += amount
+    else:
+      count[element] = amount
 
-   atoms_spild = {} 
-    
-    for atom in split_before_uppercases(molecular_formula):
-        atom_name, atom_count = split_at_digit(atom)
-        # Step 2: Update the dictionary with the atom name and count
-        atoms_spild.update({atom_name : atom_count})
-        
-        
-
-    # Step 3: Return the completed dictionary
-    return atoms_spild
+  return count
 
 
 def parse_chemical_reaction(reaction_equation):
