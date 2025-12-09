@@ -1,10 +1,8 @@
 
 # Add the import statements for functions from string_utils.py and equation_utils.py here
-from string_utils import count_atoms_in_reaction, parse_chemical_reaction
-from equation_utils import my_solve, build_equations
-
-# import string_utils.py
-# import equation_utils.py
+from equation_utils import ELEMENTS,generate_equation_for_element,build_equations,my_solve
+from string_utils import split_before_uppercases,split_at_digit,count_atoms_in_molecule,parse_chemical_reaction,count_atoms_in_reaction
+from sympy import Eq,symbols,solve
 
 
 def balance_reaction(reaction): #"Fe2O3 + H2 -> Fe + H2O"
@@ -18,5 +16,4 @@ def balance_reaction(reaction): #"Fe2O3 + H2 -> Fe + H2O"
     equations, coefficients = build_equations(reactant_atoms, product_atoms)
     coefficients = my_solve(equations, coefficients) + [1]
 
-    return coefficients # [1/3, 1, 2/3, 1]
-
+    return coefficients # [1/3, 1, 2/3, 1
